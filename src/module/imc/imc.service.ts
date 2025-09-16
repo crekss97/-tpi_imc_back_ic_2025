@@ -40,4 +40,16 @@ export class ImcService {
 
     return { imc: imcRedondeado, categoria };
   }
+
+  async traerHistorial(req: any) {
+    const userId = req.user.userId;
+
+    const historial = await this.prisma.imc.findMany({
+      where: { userId: userId },
+    });
+
+    if (historial.length === 0) return 'No tiene imc calculado';
+
+    return historial;
+  }
 }

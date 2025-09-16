@@ -62,6 +62,12 @@ yarn prisma migrate dev --name init
 yarn prisma generate
 ```
 
+### Para poder visualizar la base de datos utilizamos
+
+```bash
+yarn prisma studio
+```
+
 ## Despliegue de la Aplicación
 
 Se utilizó Vercel para el despliegue de la Aplicación
