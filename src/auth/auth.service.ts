@@ -22,11 +22,24 @@ export class AuthService {
       );
     }
     // Contraseña correcta
+    // if (user.password === loginDto.password) {
+    //   return this.jwtService.sign({
+    //     id: user.id,
+    //     email: user.email,
+    //   });
     if (user.password === loginDto.password) {
-      return this.jwtService.sign({
-        id: user.id,
-        email: user.email,
-      });
+      const payload = { id: user.id, email: user.email };
+      const access_token = this.jwtService.sign(payload);
+
+      return {
+        access_token,
+        user: {
+          id: user.id,
+          nombre: user.name,      // ajustá según tu modelo
+          apellido: user.surname, // ajustá según tu modelo
+          email: user.email,
+        },
+      };
     } else {
       throw new HttpException(
         'Correo o contraseña incorrectos',
