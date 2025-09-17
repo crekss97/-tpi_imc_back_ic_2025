@@ -14,8 +14,8 @@ async function bootstrap() {
     new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }),
   );
 
-  const jwtAuthGuard = app.get(JwtAuthGuard);
-  app.useGlobalGuards(jwtAuthGuard);
+  // const jwtAuthGuard = app.get(JwtAuthGuard);
+  // app.useGlobalGuards(jwtAuthGuard);
 
   // Solo escucha localmente
   if (!process.env.VERCEL) {
