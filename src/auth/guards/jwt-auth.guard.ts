@@ -3,6 +3,7 @@ import { Reflector } from '@nestjs/core';
 import { AuthGuard } from '@nestjs/passport';
 import { Observable } from 'rxjs';
 import { IS_PUBLIC_KEY } from '../decorators/public.decorator';
+import { Request } from 'express';
 
 /**
  * Guard para proteger rutas que requieren autenticación JWT
@@ -16,6 +17,11 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
   canActivate(
     context: ExecutionContext,
   ): boolean | Promise<boolean> | Observable<boolean> {
+    const request = context.switchToHttp().getRequest<Request>();
+    // 🚨 Dejar pasar siempre los preflight CORS
+    if (request.method === 'OPTIONS') {
+      return true;
+    }
     /**
      * Verifica si la ruta es pública
      */
